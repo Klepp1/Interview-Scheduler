@@ -10,16 +10,35 @@ import { getInterview } from "helpers/selectors";
 
 export default function Application(props) {
   const setDay = day => setState({...state, day })
+
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment )
+    .then(() => {
+      setState({
+        ...state,
+        appointments
+      });
+    })
+  }
   
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {}
+    interviewers: {} 
   });
+  //console.log(state.interviewers);
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day)
-  console.log(interviewers)
   const schedule = dailyAppointments.map((appointment) => {
   const interview = getInterview(state, appointment.interview);
     return (
@@ -29,6 +48,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
