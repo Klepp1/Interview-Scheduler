@@ -1,4 +1,3 @@
-import { action } from "@storybook/addon-actions";
 import Button from "components/Button.js";
 import InterviewerList from "components/interviewerList.js";
 import React, { useState } from 'react';

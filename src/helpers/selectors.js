@@ -32,7 +32,6 @@ export function getInterviewersForDay(state, day) {
   if (!dayReturn) {
     return [];
   }
-  console.log(dayReturn)
   let results = [];
   for (const id of dayReturn.interviewers) {
    const interviewer = state.interviewers[id]

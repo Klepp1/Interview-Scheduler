@@ -5,7 +5,6 @@ import Show from "components/Appointment/Show.js";
 import Empty from "components/Appointment/Empty.js";
 import useVisualMode from 'hooks/useVisualMode';
 import Form from './Form';
-import { FORMERR } from 'dns';
 import Status from './Status';
 import Confirm from './Confirm';
 import Error from './Error';
