@@ -14,28 +14,35 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     console.log(id, interview);
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
+
     return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment )
     .then(() => {
       setState({
         ...state,
-        appointments
+        appointments,
+        days: spotsRemaining(state, appointments)
       });
     })
+
   }
 
   function deleteInterview(id) {
+
     const appointment = {
       ...state.appointments[id],
       interview: null
     }
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
@@ -45,7 +52,8 @@ export default function useApplicationData() {
     .then(() => {
       setState({
         ...state,
-        appointments
+        appointments,
+        days: spotsRemaining(state, appointments)
       })
     })
 
@@ -61,6 +69,24 @@ export default function useApplicationData() {
     });
   }, []);
 
-  return {state, setDay, bookInterview, deleteInterview}
+  function spotsRemaining(state, appointments) {
+    const dayReturn = state.days.filter(data => data.name === state.day)[0];
+    let spots = 0;
 
+    for (let prop of dayReturn.appointments) {
+      if (appointments[prop].interview === null) {
+        spots += 1;
+      }
+    }
+    return state.days.map(day => {
+      if (day !== dayReturn) return day;
+
+      return {
+        ...day,
+        spots
+      }
+    })
+    }
+
+  return {state, setDay, bookInterview, deleteInterview}
 }
