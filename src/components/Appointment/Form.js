@@ -15,6 +15,7 @@ function reset() {
 function cancel() {
   reset();
   props.onCancel()
+  setError(null)
 }
 function validate() {
   if (student === "") {
@@ -26,6 +27,7 @@ function validate() {
     setError("Please select an interviewer");
     return;
   }
+  setError('');
 
   props.onSave(student, interviewer);
 }
