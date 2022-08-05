@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from "components/Appointment/Header.js";
 import './styles.scss';
 import Show from "components/Appointment/Show.js";
@@ -37,6 +37,7 @@ export default function Appointment(props) {
       transition(ERROR_SAVE, true)
     })
   }
+
 
   function delete1() {
     transition(DELETE, true)

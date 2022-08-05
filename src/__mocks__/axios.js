@@ -56,7 +56,7 @@ const fixtures = {
 export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
-    if (url === "/api/days") {
+    if (url === "http://localhost:8001/api/days") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -64,8 +64,7 @@ export default {
       });
     }
 
-    if (url === "/api/appointments") {
-      /* Resolve appointments data */
+    if (url === "http://localhost:8001/api/appointments") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -73,8 +72,7 @@ export default {
       });
     }
 
-    if (url === "/api/interviewers") {
-      /* Resolve interviewers data */
+    if (url === "http://localhost:8001/api/interviewers") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -83,6 +81,12 @@ export default {
     }
   }),
   put: jest.fn(() => {
+    return Promise.resolve({
+      status: 204,
+      statusText: 'No Content'
+    })
+  }),
+  delete: jest.fn(() => {
     return Promise.resolve({
       status: 204,
       statusText: 'No Content'
