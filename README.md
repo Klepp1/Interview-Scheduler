@@ -1,4 +1,5 @@
 # Interview Scheduler
+A quick and easy way to book an interview at whatever time is available with one of our amazing interviewers!
 
 ## Setup
 
@@ -21,3 +22,7 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Running Cypress visual end to end tests
+- step 1: Open three consoles
+- step 2: have one run the test api server using ```sh npm run test:server ```
