@@ -25,4 +25,4 @@ npm run storybook
 
 ## Running Cypress visual end to end tests
 - step 1: Open three consoles
-- step 2: have one run the test api server using ```sh npm run test:server ```
+- step 2: have one run the test api server using ``` npm run test:server ```
