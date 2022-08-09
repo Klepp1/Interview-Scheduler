@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function useApplicationData() {
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -10,7 +9,7 @@ export default function useApplicationData() {
     interviewers: {} 
   });
 
-  const setDay = day => setState({...state, day })
+  const setDay = day => setState({...state, day });
 
   function bookInterview(id, interview) {
 
@@ -31,21 +30,21 @@ export default function useApplicationData() {
         appointments,
         days: spotsRemaining(state, appointments)
       });
-    })
+    });
 
-  }
+  };
 
   function deleteInterview(id) {
 
     const appointment = {
       ...state.appointments[id],
       interview: null
-    }
+    };
 
     const appointments = {
       ...state.appointments,
       [id]: appointment
-    }
+    };
 
     return axios.delete(`http://localhost:8001/api/appointments/${id}`, appointment)
     .then(() => {
@@ -53,10 +52,10 @@ export default function useApplicationData() {
         ...state,
         appointments,
         days: spotsRemaining(state, appointments)
-      })
-    })
+      });
+    });
 
-  }
+  };
 
   useEffect(() => {
     Promise.all([
@@ -75,17 +74,17 @@ export default function useApplicationData() {
     for (let prop of dayReturn.appointments) {
       if (appointments[prop].interview === null) {
         spots += 1;
-      }
-    }
+      };
+    };
     return state.days.map(day => {
       if (day !== dayReturn) return day;
 
       return {
         ...day,
         spots
-      }
-    })
-    }
+      };
+    });
+  };
 
   return {state, setDay, bookInterview, deleteInterview}
-}
+};

@@ -20,7 +20,6 @@ const ERROR_DELETE = 'ERROR_DELETE';
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
-    
   );
 
   function save(name, interviewer) {
@@ -28,27 +27,27 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING)
+    transition(SAVING);
     props.bookInterview(props.id, interview)
     .then(() => {
-      transition(SHOW)
+      transition(SHOW);
     })
     .catch(() => {
-      transition(ERROR_SAVE, true)
-    })
-  }
+      transition(ERROR_SAVE, true);
+    });
+  };
 
 
   function delete1() {
-    transition(DELETE, true)
+    transition(DELETE, true);
     props.deleteInterview(props.id)
     .then(() => {
-      transition(EMPTY)
+      transition(EMPTY);
     })
     .catch(() => {
-      transition(ERROR_DELETE, true)
-    })
-  }
+      transition(ERROR_DELETE, true);
+    });
+  };
   
   return (
     <article className="appointment" data-testid='appointment'>
@@ -58,18 +57,18 @@ export default function Appointment(props) {
       {mode === SAVING && <Status message={'Saving'} />}
       {mode === EMPTY && <Empty bookInterview={props.bookInterview} onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
-      <Show
-      bookInterview={props.bookInterview}
-      student={props.interview.student}
-      interviewer={props.interview.interviewer}
-      onEdit={() => transition(EDIT)}
-      onDelete={() => transition(CONFIRM)}
-      />
+        <Show
+          bookInterview={props.bookInterview}
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+          onEdit={() => transition(EDIT)}
+          onDelete={() => transition(CONFIRM)}
+        />
       )}
       {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} />}
       {mode === EDIT && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} student={props.interview.student} interviewer={props.interview.interviewer.id} />}
       {mode === ERROR_DELETE && <Error message={'Failed to delete!'} onClose={() => back()} />}
       {mode === ERROR_SAVE && <Error message={'Failed to save!'} onClose={() => back()} />}
     </article>
-  )
+  );
 };

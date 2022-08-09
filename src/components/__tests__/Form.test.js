@@ -1,9 +1,6 @@
 import React from "react";
-
 import { render, cleanup, getByPlaceholderText, getByTestId, getByText, queryByText } from "@testing-library/react";
-
 import Form from "components/Appointment/Form";
-
 import { fireEvent } from "@testing-library/react";
 
 afterEach(cleanup);
@@ -18,7 +15,6 @@ describe("Form", () => {
   ];
 
   it("renders without student name if not provided", () => {
-
     const { getByPlaceholderText } = render(
       <Form interviewers={interviewers} />
     );

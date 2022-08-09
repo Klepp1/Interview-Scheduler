@@ -10,7 +10,7 @@ afterEach(cleanup);
 describe('Application', () => {
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(< Application />);
-    await waitForElement(() => getByText('Monday'))
+    await waitForElement(() => getByText('Monday'));
   
     fireEvent.click(getByText('Tuesday'));
   
@@ -84,7 +84,7 @@ describe('Application', () => {
 
     fireEvent.click(getByText(appointment, 'Save'));
 
-    await waitForElement(() => getByText(appointment, 'Lydia Miller-Jones'))
+    await waitForElement(() => getByText(appointment, 'Lydia Miller-Jones'));
 
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
@@ -131,5 +131,5 @@ describe('Application', () => {
     await waitForElement(() => getByText(appointment, 'Failed to delete!'));
 
     expect(getByText(appointment, "Failed to delete!")).toBeInTheDocument();
-  })
+  });
 });
