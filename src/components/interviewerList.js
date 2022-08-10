@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import "components/interviewerList.scss"
 import InterviewerListItem from './interviewerListItem';
 export default function InterviewerList(props) {
+  //map through the interviewers and pass the data to InterviewerListItem so that it can display the interviewers for the day
   const interviewerData = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem

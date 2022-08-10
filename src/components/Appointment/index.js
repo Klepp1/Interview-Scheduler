@@ -18,10 +18,11 @@ const EDIT = 'EDIT';
 const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE = 'ERROR_DELETE';
 export default function Appointment(props) {
+  //destructuring the mode functions i need
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+  //this saves the interview and makes a put request to the api to update it
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -37,7 +38,7 @@ export default function Appointment(props) {
     });
   };
 
-
+  //this function will delete an interview by making a delete request to the api
   function delete1() {
     transition(DELETE, true);
     props.deleteInterview(props.id)
@@ -48,11 +49,11 @@ export default function Appointment(props) {
       transition(ERROR_DELETE, true);
     });
   };
-  
+  // this is the html with basic conditional rendering showing the different modes based on conditions
   return (
     <article className="appointment" data-testid='appointment'>
       <Header time={props.time}/>
-      {mode === CONFIRM && <Confirm onConfirm={delete1} onCancel={() => back()} message={'are you sure you want to delete?'}/>}
+      {mode === CONFIRM && <Confirm onConfirm={delete1} onCancel={back} message={'are you sure you want to delete?'}/>}
       {mode === DELETE && <Status message={'Deleting'} />}
       {mode === SAVING && <Status message={'Saving'} />}
       {mode === EMPTY && <Empty bookInterview={props.bookInterview} onAdd={() => transition(CREATE)} />}
@@ -65,10 +66,10 @@ export default function Appointment(props) {
           onDelete={() => transition(CONFIRM)}
         />
       )}
-      {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} />}
-      {mode === EDIT && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} student={props.interview.student} interviewer={props.interview.interviewer.id} />}
-      {mode === ERROR_DELETE && <Error message={'Failed to delete!'} onClose={() => back()} />}
-      {mode === ERROR_SAVE && <Error message={'Failed to save!'} onClose={() => back()} />}
+      {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={back} />}
+      {mode === EDIT && <Form interviewers={props.interviewers} onSave={save} onCancel={back} student={props.interview.student} interviewer={props.interview.interviewer.id} />}
+      {mode === ERROR_DELETE && <Error message={'Failed to delete!'} onClose={back} />}
+      {mode === ERROR_SAVE && <Error message={'Failed to save!'} onClose={back} />}
     </article>
   );
 };

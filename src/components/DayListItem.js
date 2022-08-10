@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import "components/DayListItem.scss";
 export default function DayListItem(props) {
+  //displays the days and changes the color and text based on if selected or not or if day is full
   const dayClass = classNames('day-list__item', {'day-list__item--selected': props.selected, 'day-list__item--full': props.spots === 0});
   const formatSpots = () => {
     if (props.spots === 1) {

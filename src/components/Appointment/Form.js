@@ -6,17 +6,18 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
-
+  // resets the student and interviewer
   function reset() {
     setStudent("");
     setInterviewer(null);
   };
-
+  // clears interviewer and student and returns back to the ADD mode
   function cancel() {
     reset();
     props.onCancel()
     setError(null)
   };
+  // this function checks to see if both fields are filled out or not if not there will be an error
   function validate() {
     if (student === "") {
       setError("Student name cannot be blank");
@@ -32,7 +33,7 @@ export default function Form(props) {
     props.onSave(student, interviewer);
   };
 
-
+  //html for the form with some props
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
